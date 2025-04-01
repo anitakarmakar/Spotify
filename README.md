@@ -70,25 +70,25 @@ In advanced stages, the focus shifts to improving query performance. Some optimi
 
 ### Easy Level
 1. Retrieve the names of all tracks that have more than 1 billion streams.
-o SELECT * from spotify_db
+>>  SELECT * from spotify_db
 WHERE Stream > 1000000000;
 
 2. List all albums along with their respective artists.
-o SELECT DISTINCT album
+>>  SELECT DISTINCT album
 FROM spotify_db;
 
 3. Get the total number of comments for tracks where `licensed = TRUE`.
-o SELECT SUM(Comments) as total_comments
+>>  SELECT SUM(Comments) as total_comments
 FROM spotify_db
 WHERE Licensed='true';
 
 4. Find all tracks that belong to the album type `single`.
-o SELECT *
+>>  SELECT *
 FROM spotify_db
 WHERE album_type='single';
 
 5. Count the total number of tracks by each artist.
-o SELECT artist, COUNT(*) as total_no_songs
+>>  SELECT artist, COUNT(*) as total_no_songs
 FROM spotify_db
 GROUP BY artist
 ORDER BY 2 ASC;
@@ -96,20 +96,20 @@ ORDER BY 2 ASC;
 
 ### Medium Level
 1. Calculate the average danceability of tracks in each album.
-o SELECT album, avg(Danceability) as avg_danceability
+>>  SELECT album, avg(Danceability) as avg_danceability
 FROM spotify_db
 Group by 1
 Order by 2 desc;
 
 2. Find the top 5 tracks with the highest energy values.
-o SELECT track, MAX(Energy)
+>>  SELECT track, MAX(Energy)
 FROM spotify_db
 Group by 1
 Order by 2 desc
 limit 5;
 
 3. List all tracks along with their views and likes where `official_video = TRUE`.
-o SELECT track, SUM(Views) as total_views, SUM(likes) as total_likes
+>>  SELECT track, SUM(Views) as total_views, SUM(likes) as total_likes
 FROM spotify_db
 WHERE official_video='true'
 Group by 1
@@ -117,13 +117,13 @@ Order by 2 desc
 limit 5;
 
 4. For each album, calculate the total views of all associated tracks.
-o SELECT album, track, SUM(views)
+>>  SELECT album, track, SUM(views)
 FRoM spotify_db
 Group by 1, 2
 Order by 3 desc;
 
 5. Retrieve the track names that have been streamed on Spotify more than YouTube.
-o SELECT *
+>>  SELECT *
 FROM
 (SELECT 
 track, 
@@ -141,7 +141,7 @@ streamed_on_youtube <> 0;
 
 ### Advanced Level
 1. Find the top 3 most-viewed tracks for each artist using window functions.
-o WITH ranking_artist
+>>  WITH ranking_artist
 AS
 (SELECT 
 	artist,
@@ -155,7 +155,7 @@ SELECT * FROM ranking_artist
 WHERE raank <=3;
 
 2. Write a query to find tracks where the liveness score is above the average.
-o SELECT 
+>>  SELECT 
 	track,
     artist,
     liveness
@@ -163,7 +163,7 @@ FROM spotify_db
 WHERE Liveness> (SELECT avg(liveness) FROM spotify_db);
 
 3. **Use a `WITH` clause to calculate the difference between the highest and lowest energy values for tracks in each album.**
-o WITH cte AS
+>>  WITH cte AS
 (SELECT 
 album,
 MAX(energy) as highest_energy,
